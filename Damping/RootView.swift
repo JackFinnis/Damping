@@ -20,7 +20,7 @@ struct RootView: View {
                     .foregroundColor(.accentColor)
                     .position(x: geo.size.width / 2, y: editing ? geo.size.height : geo.size.height * (vm.y.real / 4 + 0.5))
             }
-            .background(Color(.systemFill))
+            .contentShape(Rectangle())
             .gesture(DragGesture(minimumDistance: 0)
                 .onChanged { _ in
                     editing = true
@@ -35,7 +35,7 @@ struct RootView: View {
                 Text(vm.type.rawValue)
                     .font(.headline)
                     .animation(.none)
-                VStack(spacing: 3) {
+                VStack(spacing: 5) {
                     SliderRow(editing: $editing, value: $vm.m, name: "Mass") { vm.m = pow(vm.c, 2)/(4*vm.k) }
                     SliderRow(editing: $editing, value: $vm.k, name: "Stiffness") { vm.k = pow(vm.c, 2)/(4*vm.m) }
                     SliderRow(editing: $editing, value: $vm.c, name: "Damping") { vm.c = sqrt(4*vm.k*vm.m) }
@@ -62,7 +62,7 @@ struct SliderRow: View {
     var body: some View {
         HStack {
             Text(name)
-                .frame(width: 70, alignment: .trailing)
+                .frame(width: 80, alignment: .trailing)
                 .onTapGesture {
                     withAnimation {
                         tapped()
